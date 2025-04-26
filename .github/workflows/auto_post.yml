@@ -1,0 +1,16 @@
+name: Auto-publish SEO Posts
+on:
+  schedule:
+    - cron: '0 7 * * *'  # ogni giorno alle 07:00
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with: { python-version: '3.x' }
+      - name: Install Dependencies
+        run: pip install requests pytrends
+      - name: Generate and Commit Post
+        run: python3 generate_post.py
